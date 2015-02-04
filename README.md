@@ -1,1 +1,1 @@
-Read the docs: http://bruth.github.io/jekyll-docs-template
+Read the docs: http://scraperwiki.github.io/eot-docs/
