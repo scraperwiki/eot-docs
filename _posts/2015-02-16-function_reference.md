@@ -53,12 +53,38 @@ There's no guarantee that you'll have the same number of cells afterwards; there
 
 You can also use any direction: `UP`, `DOWN`, `LEFT`, `RIGHT`, `ABOVE`, `BELOW`; or pass an `(`_x_`, `_y_`)` tuple.
 
-.fill(...)
-.expand(...) x.fill | x
-.is_number()  db # is_not_number etc. not supported at moment
-.is_date() db
-.is_/is_not_/_is(...)/_is_not(...)
-.is_not_italic()
+##### bag.fill(_direction_)
+##### bag.expand(_direction_)
+
+From each of the cells in the bag, get all cells that are in the right _direction_. `fill` doesn't include the original cells; `expand` does.
+Note that this might get a lot of blank cells; consider using `is_not_blank()`
+
+##### bag.is_number() [DB]
+Return only the cells in the bag which have a numeric value. 
+
+##### bag.is_date() [DB]
+Return only the cells in the bag which are in one of the following string formats:
+```
+1999
+1999 Q1
+Jan 1999
+Jan-Mar 1999
+```
+Note that currently this won't detect cells which are actually recognised by Excel as dates!
+
+##### bag.is_XXX()
+##### bag.is\_not\_XXX()
+Return only the cells which are / are not a thing.
+
+Options which make sense: `bold`, `italic`, `strikeout`, `underline`, `blank`, `any_border`, `all_border`, `richtext`.
+(is any border lined? are all four borders lined? is this cell richtext?)
+
+##### bag.XXX_is(value)
+##### bag.XXX\_is\_not(value)
+Return only the cells for which the property has / doesn't have a particular value.
+
+Options which make sense: `size` (in points), `font_name` (a string).
+
 .one_of() db
 .regex() db
 .value [singleton bag]
