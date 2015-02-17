@@ -102,6 +102,10 @@ Options which make sense: `size` (in points), `font_name` (a string).
 ##### bag.value
 Returns the value of a single cell.
 
+##### bag.parent()
+For any spanned cells, get the top-left cell (which contains all the info)
+Non-spanned cells are passed unchanged.
+
 ##### table.debug_dimensions() [db]
 Adds debug dimensions - giving the table name and excel cell reference - to the output CSV.
 
