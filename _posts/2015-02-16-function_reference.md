@@ -7,19 +7,31 @@ order: 2
 ---
 
 ### Core 
+
 bag.dimension(label, ?, ?)     # dynamic
+
 table.dimension(label, value)  # static
+
 return value ... obs
+
 per_file per_tab
 
 # Per file hints
+
 UP/ABOVE/DOWN/LEFT etc.
+
 OBS/DATAMARKER etc.
 
 ### Bags
 
 ##### bag.filter(_string_)
-Return only the cells in the bag with a value of _string_. Typically there's only one, so this is often followed by `.assert_one()`
+Return only the cells in the bag with a value of _string_. Typically there's only one, so this is often followed by `.assert_one()`. See later for other options to pass to filter.
+
+##### bag.one\_of(_list-of-filters_) [db]
+Return cells in the bag for which any of the filters match. Filters can be strings or _cell-functions_
+
+##### bag.regex(_regular-expression_) [db]
+Return cells whose values match the regular expression.
 
 ##### bag.assert_one()
 Return the bag unchanged, so long as it contains exactly one cell.
@@ -43,6 +55,8 @@ Optionally, if you install _hamcrest_ (`pip install pyhamcrest`) you can use the
 ```python
 bag.filter(hamcrest.equal_to("dog"))
 ```
+
+Of specific interest is when the _cell-function_ is re.compile(_regular-expression_): this is `True` when the regular expression matches the cell's value.  
 
 ##### bag.shift(_x_, _y_)
 ##### bag.shift(_direction_)
@@ -79,28 +93,41 @@ Return only the cells which are / are not a thing.
 Options which make sense: `bold`, `italic`, `strikeout`, `underline`, `blank`, `any_border`, `all_border`, `richtext`.
 (is any border lined? are all four borders lined? is this cell richtext?)
 
-##### bag.XXX_is(value)
-##### bag.XXX\_is\_not(value)
+##### bag.XXX\_is(_value_)
+##### bag.XXX\_is\_not(_value_)
 Return only the cells for which the property has / doesn't have a particular value.
 
 Options which make sense: `size` (in points), `font_name` (a string).
 
-.one_of() db
-.regex() db
-.value [singleton bag]
+##### bag.value
+Returns the value of a single cell.
 
-others, not yet used.
-.debug_dimensions() db
-.group(regex) db
-.waffle(other)
-.extrude(x, y)
-.same_row, .same_col
+##### table.debug_dimensions() [db]
+Adds debug dimensions - giving the table name and excel cell reference - to the output CSV.
 
-bag.table
+##### bag.group(_regular-expression_) [db]
+For a single cell, get the matching group from the regular expression.
+e.g. if the regular expression was `-(.*)-` and the cell's value was `cat-dog-fish`; this would return `dog`.
+
+##### bag.waffle(_other-bag_)
+Get all cells which have a cell from one bag above them, and the other bag to the side. Note that the two bags are interchangable without changing the output. You can change the direction from its default (DOWN) by specifying `direction=LEFT` or similar.
+
+##### bag.extrude(_x_, _y_)
+Get this cell, and all cells within _x_ squares right of it, and _y_ squares below it. _x_ and _y_ can be negative for left and up respectively.
+
+##### bag.same\_row(_other-bag_)
+##### bag.same\_col(_other-bag_)
+Get cells in this bag which are in the same row/column as a cell in the second.
+
+##### bag.table
+The table which these cells are from.
 
 ### Table only
 
-.excel_ref(...) db
+##### table.excel\_ref(_ref_) [db]
+
+
+
 .col()
 
 
