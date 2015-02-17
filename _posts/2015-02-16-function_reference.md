@@ -125,26 +125,37 @@ The table which these cells are from.
 ### Table only
 
 ##### table.excel\_ref(_ref_) [db]
-
-
-
-.col()
-
-
-### existance of scan
-
-.pprint(?) -- do we care
-.aslist(?) -- do we care
-.filter_one(func) -- do we care?
-.excel_locations(?) -- do we care?
+Get cells from the table via an excel cell referencce: e.g. "G4", "C", "9".
 
 
 ### Shallow magic
-bag.table
-bag.select(lambda bag_cell, table_cell)
-bag.select_other(lambda bag_cell, other_cell: foo, other_bag)
-bag.junction(otherbag)
 
+These are reasonably detailed internals, but might be useful to know.
 
--- document as xypath
+##### bag.select(_function_)
+Get cells from the same table as these cells, based on a function.
 
+The function must take two arguments: a bag cell, and a table cell.
+
+If the function is `True`, the table cell will be in the output.
+
+##### bag.select_other(lambda bag_cell, other_cell: foo, other_bag)
+As `bag.select` except it inspects another bag rather than the bag's table.
+
+This is useful because you can return cells from only a subset of the table, or use a different table entirely.
+
+##### bag.junction(otherbag)
+Similar to `bag.waffle`, except it outputs a list of the form
+```python
+[
+    [bag_cell, otherbag_cell, cell_at_junction],
+    [bag_cell, otherbag_cell, cell_at_junction],
+    ...
+]
+```
+
+### Other things that might be useful, maybe.
+
+scan.py looks for duplicated sets of dimension values
+
+bag.pprint, .aslist and .excel_locations might be useful ways of displaying the data when debugging.
