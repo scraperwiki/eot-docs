@@ -104,6 +104,8 @@ Return only the cells for which the property has / doesn't have a particular val
 
 Options which make sense: `size` (in points), `font_name` (a string).
 
+`bag.font\_name\_is\_not("Comic Sans MS")`
+
 ##### bag.value
 Returns the value of a single cell.
 
