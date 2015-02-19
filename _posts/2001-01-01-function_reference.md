@@ -12,19 +12,39 @@ Examples of recipes can be found at http://github.com/scraperwiki/eot-recipes
 
 ### Core 
 
-bag.dimension(label, ?, ?)     # dynamic
+##### bag.dimension(label, method, direction)
+##### table.dimension(label, value)
 
-table.dimension(label, value)  # static
+Use the first to specify a dimension to output, selecting the header cells so that the observations can find them in the first case, or a literal string value in the second. For more info, see the [language page](language.html).
 
-return value ... obs
+#### per_tab(tab)
 
-per_file per_tab
+Function run once per tab.
 
-# Per file hints
+Must return the observations and set up any dimensions.
 
-UP/ABOVE/DOWN/LEFT etc.
+```python
+obs = tab.selector()
+return obs
+```
 
-OBS/DATAMARKER etc.
+As per normal python, the return statement must be the last thing in the function.
+
+#### per_file(tableset)
+
+Must return either the names of the tabs, or individual items from `tableset`.
+
+Consider using `tableset.remove("unwanted tab")` in the second instance.
+
+You can get a list of tableset names with `tableset.names`
+
+You can return them all with `tableset` or `"*"`
+
+##### Constants
+
+UP, DOWN, LEFT, RIGHT
+OBS, DATAMARKER, GEOG, TIME, TIMEUNIT
+CLOSEST, DIRECTLY
 
 ### Bags
 
