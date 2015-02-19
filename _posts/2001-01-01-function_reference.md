@@ -121,8 +121,7 @@ The table which these cells are from.
 ### Table only
 
 ##### table.excel\_ref(_ref_) [db]
-Get cells from the table via an excel cell referencce: e.g. "G4", "C", "9".
-
+Get cells from the table via an Excel cell reference: e.g. "G4", "C", "9", "Q5:Z9", "A:C", "9:88".
 
 ### Shallow magic
 
