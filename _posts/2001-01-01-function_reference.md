@@ -55,7 +55,7 @@ def large_value_near_top(cell):
 bag.filter(large_value_near_top)
 ```
 
-Optionally, if you install _hamcrest_ (`pip install pyhamcrest`) you can use their matching functions on the cell value.
+Optionally, if you install *hamcrest* (`pip install pyhamcrest`) you can use their matching functions on the cell value - see the [hamcrest documentation](http://pyhamcrest.readthedocs.org/en/latest/library/) for the available functions.
 
 ```python
 bag.filter(hamcrest.equal_to("dog"))
