@@ -95,6 +95,11 @@ Note that currently this won't detect cells which are actually recognised by Exc
 ##### bag.is\_not\_XXX()
 Return only the cells which are / are not a thing.
 
+```python
+bag.is_not_bold()
+bag.is_strikeout()
+```
+
 Options which make sense: `bold`, `italic`, `strikeout`, `underline`, `blank`, `any_border`, `all_border`, `richtext`.
 (is any border lined? are all four borders lined? is this cell richtext?)
 
