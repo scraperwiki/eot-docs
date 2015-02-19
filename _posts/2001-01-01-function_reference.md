@@ -47,6 +47,7 @@ Return only the cells in the bag for which the _cell-function_ is true. These ar
 bag.filter(lambda cell: cell.value > 20 and cell.y < 40)
 ```
 or
+
 ```python
 def large_value_near_top(cell):
     return cell.value > 20 and cell.y < 40
