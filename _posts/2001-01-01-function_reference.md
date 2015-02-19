@@ -61,7 +61,7 @@ Optionally, if you install *hamcrest* (`pip install pyhamcrest`) you can use the
 bag.filter(hamcrest.equal_to("dog"))
 ```
 
-Of specific interest is when the _cell-function_ is re.compile(_regular-expression_): this is `True` when the regular expression matches the cell's value.  
+Of specific interest is when the _cell-function_ is `re.compile(`_regular-expression_`)`: this is `True` when the regular expression matches the cell's value.  
 
 ##### bag.shift(_x_, _y_)
 ##### bag.shift(_direction_)
