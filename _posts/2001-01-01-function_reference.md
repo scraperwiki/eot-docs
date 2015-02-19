@@ -66,7 +66,7 @@ Of specific interest is when the _cell-function_ is `re.compile(`_regular-expres
 ##### bag.shift(_x_, _y_)
 ##### bag.shift(_direction_)
 
-Return only cells which are exactly _x_ cells to the right, and _y_ cells down from a cell in the current bag. _X_ and _y_ can be negative to look left and up.
+Return only cells which are exactly _x_ cells to the right, and _y_ cells down from a cell in the current bag. Either _x_ or _y_ can be negative to look left and up respectively.
 
 There's no guarantee that you'll have the same number of cells afterwards; there might not be a cell at the new position.
 
