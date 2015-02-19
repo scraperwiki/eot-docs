@@ -41,28 +41,6 @@ Return cells whose values match the regular expression.
 Return the bag unchanged, so long as it contains exactly one cell.
 Otherwise crash.
 
-##### bag.filter(_cell-function_) [backend]
-Return only the cells in the bag for which the _cell-function_ is true. These are typically written
-```python
-bag.filter(lambda cell: cell.value > 20 and cell.y < 40)
-```
-or
-
-```python
-def large_value_near_top(cell):
-    return cell.value > 20 and cell.y < 40
-    
-bag.filter(large_value_near_top)
-```
-
-Optionally, if you install *hamcrest* (`pip install pyhamcrest`) you can use their matching functions on the cell value - see the [hamcrest documentation](http://pyhamcrest.readthedocs.org/en/latest/library/) for the available functions.
-
-```python
-bag.filter(hamcrest.equal_to("dog"))
-```
-
-Of specific interest is when the _cell-function_ is `re.compile(`_regular-expression_`)`: this is `True` when the regular expression matches the cell's value.  
-
 ##### bag.shift(_x_, _y_)
 ##### bag.shift(_direction_)
 
@@ -115,14 +93,16 @@ Options which make sense: `size` (in points), `font_name` (a string).
 Returns the value of a single cell.
 
 ##### bag.parent()
-For any spanned cells, get the top-left cell (which contains all the info)
+For any spanned cells, get the top-left cell (which contains all the info).
+
 Non-spanned cells are passed unchanged.
 
 ##### table.debug_dimensions() [db]
-Adds debug dimensions - giving the table name and excel cell reference - to the output CSV.
+Adds debug dimensions - giving the table name and Excel cell reference - to the output CSV.
 
 ##### bag.group(_regular-expression_) [db]
 For a single cell, get the matching group from the regular expression.
+
 e.g. if the regular expression was `-(.*)-` and the cell's value was `cat-dog-fish`; this would return `dog`.
 
 ##### bag.waffle(_other-bag_)
@@ -170,8 +150,33 @@ Similar to `bag.waffle`, except it outputs a list of the form
 ]
 ```
 
+##### bag.filter(_cell-function_)
+This is the more general form of the 'filter' command.
+Return only the cells in the bag for which the _cell-function_ is true. These are typically written
+```python
+bag.filter(lambda cell: cell.value > 20 and cell.y < 40)
+```
+or
+
+```python
+def large_value_near_top(cell):
+    return cell.value > 20 and cell.y < 40
+    
+bag.filter(large_value_near_top)
+```
+
+Optionally, if you install *hamcrest* (`pip install pyhamcrest`) you can use their matching functions on the cell value - see the [hamcrest documentation](http://pyhamcrest.readthedocs.org/en/latest/library/) for the available functions.
+
+```python
+bag.filter(hamcrest.equal_to("dog"))
+```
+
+Of specific interest is when the _cell-function_ is `re.compile(`_regular-expression_`)`: this is `True` when the regular expression matches the cell's value.  
+
+
 ### Other things that might be useful, maybe.
 
 scan.py looks for duplicated sets of dimension values
 
 bag.pprint, .aslist and .excel_locations might be useful ways of displaying the data when debugging.
+
