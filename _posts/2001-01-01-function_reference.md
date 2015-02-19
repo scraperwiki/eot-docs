@@ -141,6 +141,7 @@ This is useful because you can return cells from only a subset of the table, or 
 
 ##### bag.junction(otherbag)
 Similar to `bag.waffle`, except it outputs a list of the form
+
 ```python
 [
     [bag_cell, otherbag_cell, cell_at_junction],
