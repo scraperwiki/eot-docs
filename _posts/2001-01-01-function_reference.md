@@ -43,7 +43,9 @@ You can return them all with `tableset` or `"*"`
 ##### Constants
 
 UP, DOWN, LEFT, RIGHT
+
 OBS, DATAMARKER, GEOG, TIME, TIMEUNIT
+
 CLOSEST, DIRECTLY
 
 ### Bags
