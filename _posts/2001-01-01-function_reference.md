@@ -32,7 +32,7 @@ OBS/DATAMARKER etc.
 Return only the cells in the bag with a value of _string_. Typically there's only one, so this is often followed by `.assert_one()`. See later for other options to pass to filter.
 
 ##### bag.one\_of(_list-of-filters_) [db]
-Return cells in the bag for which any of the filters match. Filters can be strings or _cell-functions_
+Return cells in the bag for which any of the filters match. Filters are usually strings but could also be _cell-functions_ (see the backend of bag.filter, below)
 
 ##### bag.regex(_regular-expression_) [db]
 Return cells whose values match the regular expression.
