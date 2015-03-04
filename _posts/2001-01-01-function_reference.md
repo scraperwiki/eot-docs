@@ -3,7 +3,7 @@ layout: page
 title: "Function Reference"
 category: doc
 date: 2001-01-01 12:00:00
-order: 2
+order: 3
 ---
 
 ## Learning from examples
@@ -144,6 +144,16 @@ The table which these cells are from.
 
 ##### table.excel\_ref(_ref_) [db]
 Get cells from the table via an Excel cell reference: e.g. "G4", "C", "9", "Q5:Z9", "A:C", "9:88".
+
+This is useful as a last resort if there's absolutely no other way of
+specifying a particular cell or cells. However, it's preferable to
+select cells via dimensions instead as these will be more robust to
+spreadsheet change.
+
+For example, if all the cells are shifted right one
+in a new version of a spreadsheet, the desired cell will have shifted
+too, but the reference in the recipe won't be updated and the recipe
+will not behave as intended.
 
 ### Shallow magic
 
