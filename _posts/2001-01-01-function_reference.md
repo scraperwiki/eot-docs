@@ -75,7 +75,7 @@ You can also use any direction: `UP`, `DOWN`, `LEFT`, `RIGHT`, `ABOVE`, `BELOW`;
 ##### bag.fill(_direction_)
 ##### bag.expand(_direction_)
 
-From each of the cells in the bag, get all cells that are in the right _direction_. `fill` doesn't include the original cells; `expand` does.
+From each of the cells in the bag, get all cells that are in the specified _direction_. `fill` doesn't include the original cells; `expand` does.
 Note that this might get a lot of blank cells: consider using `is_not_blank()`.
 
 ##### bag.is_number() [DB]
