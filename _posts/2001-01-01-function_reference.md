@@ -3,7 +3,7 @@ layout: page
 title: "Function Reference"
 category: doc
 date: 2001-01-01 12:00:00
-order: 3
+order: 4
 ---
 
 ## Learning from examples
