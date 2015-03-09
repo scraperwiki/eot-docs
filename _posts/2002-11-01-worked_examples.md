@@ -16,6 +16,10 @@ step-by-step in this tutorial.
 We want to extract all the observations from the tabs, *except* the combined
 "all aged 16 & over" data and the change data.
 
+We can run this by placing `a02.py` in the same directory as `a02.xls` and
+running `bake a02.py a02.xls` while in that directory at the Windows
+command line.
+
 ** Image: spreadsheet with regions that we want selected highlighted **
 
 ### `per_file`
