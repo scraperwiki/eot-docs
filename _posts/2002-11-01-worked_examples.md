@@ -22,6 +22,21 @@ command line.
 
 ** Image: spreadsheet with regions that we want selected highlighted **
 
+### Importing constants
+
+```python
+from databaker.constants import *
+```
+
+This line makes it possible to use any of the following in the recipe:
+
+* dimensions (`DATAMARKER`, `GEOG`, `OBS`, `TIME`, `TIMEUNIT`);
+* directions (`ABOVE`, BELOW`, `LEFT`, `RIGHT`);
+* selection specifiers (`CLOSEST`, `DIRECTLY`).
+
+Without them, the recipe will fail with a "`NameError`" as the recipe
+doesn't know how these special constants are defined.
+
 ### `per_file`
 
 ```python
