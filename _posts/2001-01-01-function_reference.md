@@ -42,11 +42,28 @@ You can return them all with `tableset` or `"*"`
 
 ##### Constants
 
-UP, DOWN, LEFT, RIGHT
+###### Directions
 
-OBS, DATAMARKER, GEOG, TIME, TIMEUNIT
+ABOVE (synonym for UP), BELOW (synonym for DOWN), LEFT, RIGHT
 
-CLOSEST, DIRECTLY
+###### Dimensions
+
+* OBS is an observation, a particular piece of data.
+* DATAMARKER refer to footnote-like things, for example `(a)` to refer
+  to approximate data.
+* GEOG is the GSS code, e.g. `E04001323`.
+* TIME specifies the period, e.g. a year, month or quarter for which the
+  observation applies, e.g. `Feb-Apr 1971`.
+* TIMEUNIT is the length of the time period, e.g. `Quarter`.
+
+###### Selection specifiers
+
+How we get from observations to headers:
+
+* CLOSEST (gets the *first* cell in the same column or row as the
+  observation in a specified direction);
+* DIRECTLY (gets the *closest* cell in the same column or row as the
+  observation in a specified direction).
 
 ### Bags
 
