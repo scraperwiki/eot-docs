@@ -109,11 +109,13 @@ These selected cells are stored in a variable called `obs`.
 For each observation, we want to add certain dimensions. The following
 lines specify which dimensions we will retrieve for each observation.
 
-`tab.col('A').one_of(['Male', 'Female', 'All Persons']).dimension('gender', CLOSEST, ABOVE)`
-`tab.col('A').is_date().dimension(TIME, DIRECTLY, LEFT)`
-`tab.regex("All aged .*").dimension('ages', CLOSEST, UP)`
-`tab.filter("Total economically active").fill(LEFT).fill(RIGHT).is_not_blank().dimension('indicator', DIRECTLY, ABOVE)`
- 
+```python
+tab.col('A').one_of(['Male', 'Female', 'All Persons']).dimension('gender', CLOSEST, ABOVE)
+tab.col('A').is_date().dimension(TIME, DIRECTLY, LEFT)
+tab.regex("All aged .*").dimension('ages', CLOSEST, UP)
+tab.filter("Total economically active").fill(LEFT).fill(RIGHT).is_not_blank().dimension('indicator', DIRECTLY, ABOVE)
+```
+
 These all add dimensions to be retrieved for each cell in the selected
 data, `obs` but use different approaches to locate the cell containing
 the dimension information.
