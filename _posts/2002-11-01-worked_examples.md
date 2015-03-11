@@ -14,10 +14,11 @@ with the recipe `a02.py` which we're going to walk through
 step-by-step in this tutorial.
 
 We want to extract all the observations from the tabs, *except* the combined
-"all aged 16 & over" data and the change data.
+"all aged 16 & over" data. The change data aren't observations so we
+should ignore these too.
 
-We can run this by placing `a02.py` in the same directory as `a02.xls` and
-running `bake a02.py a02.xls` while in that directory at the Windows
+We can run the recipe by placing `a02.py` in the same directory as `a02.xls`
+and running `bake a02.py a02.xls` while in that directory at the Windows
 command line.
 
 ** Image: spreadsheet with regions that we want selected highlighted **
@@ -44,12 +45,12 @@ def per_file(tableset):
     return "*"
 ```
  
-This selects all tabs from the spreadsheet, so we will be extracting
+This selects *all* of the spreadsheet tabs: we will extract
 data from both the `seasonally adjusted` and the `not seasonally
 adjusted` tabs.
 
-In this case, the layouts of the tabs is similar enough that we can use
-this recipe for all the tabs.
+For this spreadsheet, the tab layouts are similar enough that we can use
+the same recipe code for all the tabs.
 
 ### `per_tab`
 
@@ -79,9 +80,9 @@ this cell.
 We can confirm this by then doing `.assert_one()`. Why do this if we
 already know there's only one cell that matches? It means that we can
 reuse this recipe on new version of the spreadsheets but have it warn us
-if it finds multiple entries - or none at all. It's possible that
-whoever creates the next version of the spreadsheet might merge the two
-tabs into one. `assert_one()` would warn us of this.
+if it finds multiple entries — or none at all. It's possible that
+whoever creates the next version of the spreadsheet might, for instance,
+merge the two tabs into one. `assert_one()` would warn us of this.
  
 From cell B7, `shift(DOWN)` now gives us the one cell down from the one that
 contained MGSL, so we've now selected cell B8.
@@ -90,8 +91,8 @@ contained MGSL, so we've now selected cell B8.
 cell B8, so we skip that first header row and the first column.
  
 *Image showing current selection*
- 
-So, we've now selected the cells that are to the right and down of B7
+
+Now we've selected the cells that are to the right and down of B7
 which contain the data we want. But, we're only interested in the
 observations, so we don't want to extract the four character codes or
 the change values.
@@ -116,23 +117,23 @@ tab.regex("All aged .*").dimension('ages', CLOSEST, UP)
 tab.filter("Total economically active").fill(LEFT).fill(RIGHT).is_not_blank().dimension('indicator', DIRECTLY, ABOVE)
 ```
 
-These all add dimensions to be retrieved for each cell in the selected
-data, `obs` but use different approaches to locate the cell containing
-the dimension information.
+These four lines all add dimensions to be retrieved for each cell in the
+selected data, `obs`, but use different approaches to locate the cell
+containing the dimension information.
 
 ##### Line 2 
 
-The `tab.col('A')` in L2 (and L3) selects cells in column A of the
-tab.
+The `tab.col('A')` in line 2 (L2) and line 3 selects cells in column A
+of the tab.
 
 Next, of the cells in column A, `one_of` selects those that match the
 text `Male`, `Female` or `All Persons`.
 
 `.dimension('gender', CLOSEST, ABOVE)` specifies what we want to call
-the dimension in the output, along with how we get to the gender cell that
-corresponds to an observation cell.
+the dimension in the output — "gender" — along with how we get to the
+gender cell that corresponds to an observation cell.
 
-We look for the `CLOSEST` cell of this selection that's above the row
+We look for the `CLOSEST` cell of this selection that's `ABOVE` the row
 where the observation lies.
 
 ##### Line 3
@@ -186,22 +187,22 @@ selection directly above each cell of interest as `indicator`.
 `tab.dimension('adjusted_yn', tab.name)`
 
 This line explicitly sets a dimension item to be the name of the
-current tab, and doesn't actually consider any of the cells in the
-spreadsheet.
+current tab (`tab.name`). It doesn't actually consider any of the
+cells in the spreadsheet at all.
 
 This only works for text which doesn't depend on the
-particular observation - so typically things which are the same
+particular observation — so typically things which are the same
 for all observations on the tab.
  
-Adds a dimension with the label
-`adjusted_yn` and an item that's set to the spreadsheet tab's name,
-e.g. `seasonally adjusted` or `not seasonally adjusted`.
+So, for this dimension, the values will be
+`seasonally adjusted` or `not seasonally adjusted` depending on which
+tab the observation was found.
 
 #### Extracting the data with the dimensions
 
 ##### Line 7
 
 `return obs` then tells `databaker` that it's the end of the recipe
-and we've finished selecting observations and dimensions. The output
-data will be generated containing the observations and dimensions
-we've chosen in the recipe.
+and we've finished selecting observations and dimensions. If we run
+this recipe, the output data will be generated containing the
+observations and dimensions we've chosen in it.
