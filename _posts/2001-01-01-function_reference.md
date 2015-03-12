@@ -55,6 +55,7 @@ ABOVE (synonym for UP), BELOW (synonym for DOWN), LEFT, RIGHT
 * TIME specifies the period, e.g. a year, month or quarter for which the
   observation applies, e.g. `Feb-Apr 1971`.
 * TIMEUNIT is the length of the time period, e.g. `Quarter`.
+* Also STATPOP, UNITOFMEASURE, UNITMULTIPLIER, MEASURETYPE, STATUNIT.
 
 ###### Selection specifiers
 
@@ -66,6 +67,17 @@ How we get from observations to headers:
   observation in a specified direction).
 
 ### Bags
+
+##### Set Operators
+Bags are 'sets' of cells - and you can treat them just like Python sets.
+
+Specifically, you can use:
+
+```python
+newbag = bigbag | bag_of_cells_we_want  # also .union
+newbag = bigbag - bag_of_cells_we_dont  # also .difference
+newbag = bag & other_bag                # also .intersection
+```
 
 ##### bag.filter(_string_)
 Return only the cells in the bag with a value of _string_. Typically there's only one, so this is often followed by `.assert_one()`. See later for other options to pass to filter.
