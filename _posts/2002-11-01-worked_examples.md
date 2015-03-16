@@ -261,6 +261,67 @@ tab the observation was found.
 ##### Line 7
 
 `return obs` then tells `databaker` that it's the end of the recipe
-and we've finished selecting observations and dimensions. If we run
-this recipe, the output data will be generated containing the
-observations and dimensions we've chosen in it.
+and we've finished selecting observations and dimensions. The output
+data will be generated containing the observations and dimensions
+we've chosen in the recipe.
+
+## Explaining the recipe ashe13.py
+
+As with `a02.py`, you can get the spreadsheet and recipe for this
+example [here](https://github.com/scraperwiki/eot-recipes). And, just as
+with `a02.py`, we start by importing the special constants from
+`databaker.constants` by `from databaker.constants import *`.
+
+We can run this by placing `ashe13.py` in the same directory as
+`ashe_rev_cv_2013.xls` and running `bake a02.py a02.xls` while in that
+directory at the Windows command line.
+
+### `per_file`
+
+```python
+def per_file(tabs):
+    "ignore tables named Notes or CV Notes"
+    tablist = tabs.names # get a list of names
+    tablist.discard('Notes')
+    tablist.discard('CV notes')
+    return tablist
+```
+
+Here, `per_file` first gets the list of names of the tabs by
+`tabs.names` and then `discard`s ones which are called "`Notes`" or "`CV
+notes`". We don't want to process these, as you may have guessed, because
+these are just pages of notes and don't contain any data.
+
+The tabs remaining that do contain data will be processed by `per_tab`.
+
+### `per_tab`
+
+```python
+def per_tab(tab):
+    tab.dimension("Table Header", tab.excel_ref("A1").value)
+
+    obs = tab.excel_ref("H13").fill(RIGHT).fill(DOWN)
+
+    anchor = tab.filter("18-21 ALL OCCUPATIONS").assert_one()
+
+    anchor.shift(RIGHT).fill(DOWN).dimension("SOC", DIRECTLY, LEFT)
+    descriptions = anchor.fill(DOWN)
+    descriptions.dimension("description", DIRECTLY, LEFT) # feels like this'd make more sense with junction
+
+    percentiles = tab.filter("Percentiles").assert_one().shift(DOWN).fill(RIGHT)
+    percentiles.dimension("Percentiles", DIRECTLY, ABOVE)
+
+    return obs
+```
+
+#### Selecting observations
+
+##### Line 2
+
+`obs = tab.excel_ref("H13").fill(RIGHT).fill(DOWN)
+
+This selects all the cells.
+
+#### Selecting dimensions
+
+Finally, we return the observations and then extract the dimensions for each one.
