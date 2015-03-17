@@ -13,6 +13,11 @@ available [here](https://github.com/scraperwiki/eot-recipes) together
 with the recipe `a02.py` which we're going to walk through
 step-by-step in this tutorial.
 
+A snippet of the spreadsheet is shown below:
+
+![Spreadsheet showing the cells we intend to
+select](../images/a02_spreadsheet.png)
+
 We want to extract all the observations from the tabs, *except* the combined
 "all aged 16 & over" data. The change data aren't observations so we
 should ignore these too.
@@ -20,8 +25,6 @@ should ignore these too.
 We can run the recipe by placing `a02.py` in the same directory as `a02.xls`
 and running `bake a02.py a02.xls` while in that directory at the Windows
 command line.
-
-** Image: spreadsheet with regions that we want selected highlighted **
 
 ### Importing constants
 
@@ -89,8 +92,11 @@ contained MGSL, so we've now selected cell B8.
  
 `fill(RIGHT)` and `fill(DOWN)` then select all cells to the right and down of
 cell B8, so we skip that first header row and the first column.
- 
-*Image showing current selection*
+
+The image below shows us the selection at this stage:
+
+![Spreadsheet showing the cells selected at this
+stage](../images/a02_spreadsheet_selection_1.png)
 
 Now we've selected the cells that are to the right and down of B7
 which contain the data we want. But, we're only interested in the
@@ -102,6 +108,11 @@ they are text, not numbers. And the change values are in italics.
 
 So, we can use `is_number()` and `is_not_italic()` to get only the
 observation cells.
+
+Below illustrates the selection we've made:
+
+![Spreadsheet showing the final selection of
+cells](../images/a02_spreadsheet_selection_2.png)
 
 These selected cells are stored in a variable called `obs`.
 
@@ -116,6 +127,9 @@ tab.col('A').is_date().dimension(TIME, DIRECTLY, LEFT)
 tab.regex("All aged .*").dimension('ages', CLOSEST, UP)
 tab.filter("Total economically active").fill(LEFT).fill(RIGHT).is_not_blank().dimension('indicator', DIRECTLY, ABOVE)
 ```
+
+Here, the dimensions that we want to retrieve for each cell in `obs` are
+themselves specified by the contents of cells.
 
 These four lines all add dimensions to be retrieved for each cell in the
 selected data, `obs`, but use different approaches to locate the cell
@@ -136,6 +150,15 @@ gender cell that corresponds to an observation cell.
 We look for the `CLOSEST` cell of this selection that's `ABOVE` the row
 where the observation lies.
 
+This is illustrated below. The solid orange cells are the gender cells
+that we selected in this line of the recipe. The light orange selection
+represent cells in `obs`. For any cell in the first selection of `obs`
+cells (rows 473-497), the closest above gender dimension is "All
+Persons". For cells in the second selection of `obs` cells (rows
+971-995), the closest above gender dimension is "Male".
+
+![Illustration of gender selection](../images/a02_closest_above_gender.png)
+
 ##### Line 3
 
 First, we do the same as in L2, selecting all cells in column A.
@@ -148,11 +171,23 @@ using `is_date()`.
 We then specify that this corresponds to the special TIME dimension and
 that this data lies `DIRECTLY` to the left of the current cell.
 
+Below we show an example of this again. For this one particular row of
+`obs` cells shown, the dimension we select for each cell in the row directly
+left date to each of those cells is `Dec-Feb 2011`. (Each row of `obs`
+cells likewise has a corresponding date that will be stored for each
+observation.)
+
+![Illustration of date selection](../images/a02_directly_left_time.png)
+
 ##### Line 4
 
 `tab.regex("All aged .\*")` uses a regular expression to find cells
 anywhere in the tab that contain `All aged ` (notice the space) followed
 by any text.
+
+Selected cells are shown below highlighted orange:
+
+![Illustration of regex selection](../images/a02_all_aged_regex.png)
 
 The `.*` means match any character (represented by `.`) and we've specified
 using the `*` that we don't mind how many characters follow `All aged `.
@@ -166,20 +201,43 @@ the closest cell to each one in our selection.
 
 (UP and ABOVE mean the same thing.)
 
+In the case below, the CLOSEST matching dimension cell UP from any selected
+cell in `obs` as shown is B4.
+
+![Illustration of regex selection with
+cells](../images/a02_all_aged_regex_selection.png)
+
+(Note that the examples in the images are truncated forms of the full
+spreadsheets. In the full spreadsheet, the cell `All aged 16 to 64` also
+matches this age regex. The selected `obs` cells that are below this
+"All aged 16 to 64" cell will actually have that as their corresponding
+dimension, as that cell would be the CLOSEST UP from them, closer than
+the `All aged 16 & over`.)
+
+![Illustration of another regex selection with
+cells](../images/a02_all_aged_regex_selection_2.png)
+
 ##### Line 5
 
 `tab.filter("Total economically active").fill(LEFT).fill(RIGHT).is_not_blank().dimension('indicator', DIRECTLY, ABOVE)`
 
 Here we first find cells that contain exactly `Total economically
 active`. For all of the cells in this selection, we then select all cells
-to the left and right of these with `.fill(LEFT)` and `.fill(RIGHT)`.
+to the left and right of these with `.fill(LEFT)` and `.fill(RIGHT)`:
 
-`is_not_blank()` removes any empty cells. After `.fill()` we may have
-unwanted blank cells that we're not interested in. In this case, there
-are empty cells between the indicator names that are part of our current
-selection that we don't need.
+![Illustration of header selection](../images/a02_header_selection.png)
 
-`.dimension('indicator', DIRECTLY, ABOVE) labels the cell in this
+As shown, this also includes lots of blank cells, those to either side
+of the headers as well as the empty cells between headers (e.g. C4,
+E4...)
+
+The image below shows the effect of `is_not_blank()`: it removes these
+unwanted and empty cells.
+
+![Illustration of header selection without
+blanks](../images/a02_header_selection_no_blanks.png)
+
+`.dimension('indicator', DIRECTLY, ABOVE)` labels the cell in this
 selection directly above each cell of interest as `indicator`.
 
 ##### Line 6
@@ -193,7 +251,7 @@ cells in the spreadsheet at all.
 This only works for text which doesn't depend on the
 particular observation — so typically things which are the same
 for all observations on the tab.
- 
+
 So, for this dimension, the values will be
 `seasonally adjusted` or `not seasonally adjusted` depending on which
 tab the observation was found.
