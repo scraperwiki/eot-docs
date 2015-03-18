@@ -15,6 +15,7 @@ A recipe is a short script which explains where to find the observations
 in the spreadsheet, and how to find the values of dimensions for each
 observation.
 
-
+You can think of this as "unpivoting" and cleaning a spreadsheet, in a
+very general and powerful way.
 
 
