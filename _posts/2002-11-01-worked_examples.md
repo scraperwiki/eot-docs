@@ -3,7 +3,6 @@ layout: page
 title: "Worked examples"
 category: doc
 date: 2002-11-01 12:00:00
-order: 2
 ---
 
 ## Explaining the recipe a02.py
