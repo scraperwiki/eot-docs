@@ -7,7 +7,7 @@ title: "Excel Output Transformation"
 <h2>Introduction</h2>
 </div>
 
-Excel Output Transformation is an Office of National Statistics project
+Excel Output Transformation (EOT) is an Office of National Statistics project
 to automate conversion from spreadsheets to datasets.
 
 The layout of a particular spreadsheet is configured in a *recipe*. 
