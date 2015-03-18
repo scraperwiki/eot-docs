@@ -77,10 +77,10 @@ newbag = bag & other_bag                # also .intersection
 <img src='../images/set.jpeg' width='50%' height='50%'>
 
 ##### bag.filter(_string_)
-Return only the cells in the bag with a value of _string_. Typically there's only one, so this is often followed by `.assert_one()`. See later for other options to pass to filter.
+Return only the cells in the bag with a value of _string_. Typically there's only one, so this is often followed by `.assert_one()`. See later for other options to pass to select.
 
-##### bag.one\_of(_list-of-filters_) [db]
-Return cells in the bag for which any of the filters match. Filters are usually strings but could also be _cell-functions_ (see the backend of bag.filter, below)
+##### bag.one\_of(_list-of-selects_) [db]
+Return cells in the bag for which any of the selects match. selects are usually strings but could also be _cell-functions_ (see the backend of bag.select, below)
 
 ##### bag.regex(_regular-expression_) [db]
 Return cells whose values match the regular expression.
@@ -98,11 +98,20 @@ There's no guarantee that you'll have the same number of cells afterwards; there
 
 You can also use any direction: `UP`, `DOWN`, `LEFT`, `RIGHT`, `ABOVE`, `BELOW`; or pass an `(`_x_`, `_y_`)` tuple.
 
+<img src='../images/shift.jpeg' width="50%" height="50%">
+
+##### bag.extrude(_x_, _y_)
+Get this cell, and all cells within _x_ squares right of it, and _y_ squares below it. _x_ and _y_ can be negative for left and up respectively.
+
+<img src='../images/extrude.jpeg' width="50%" height="50%">
+
 ##### bag.fill(_direction_)
 ##### bag.expand(_direction_)
 
 From each of the cells in the bag, get all cells that are in the specified _direction_. `fill` doesn't include the original cells; `expand` does.
 Note that this might get a lot of blank cells: consider using `is_not_blank()`.
+
+<img src = '../images/fillexpand.jpeg' width="50%" height="50%">
 
 ##### bag.is_number() [DB]
 Return only the cells in the bag which have a numeric value. 
@@ -156,12 +165,13 @@ e.g. if the regular expression was `-(.*)-` and the cell's value was `cat-dog-fi
 ##### bag.waffle(_other-bag_)
 Get all cells which have a cell from one bag above them, and the other bag to the side. Note that the two bags are interchangable without changing the output. You can change the direction from its default (DOWN) by specifying `direction=LEFT` or similar.
 
-##### bag.extrude(_x_, _y_)
-Get this cell, and all cells within _x_ squares right of it, and _y_ squares below it. _x_ and _y_ can be negative for left and up respectively.
+<img src='../images/junctionextrude.jpeg' width="50%" height="50%">
 
 ##### bag.same\_row(_other-bag_)
 ##### bag.same\_col(_other-bag_)
 Get cells in this bag which are in the same row/column as a cell in the second.
+
+<img src='../images/same_row.jpeg' width="50%" height="50%">
 
 ##### bag.table
 The table which these cells are from.
@@ -208,7 +218,7 @@ Similar to `bag.waffle`, except it outputs a list of the form
 ]
 ```
 
-##### bag.filter(_cell-function_)
+##### bag.select(_cell-function_)
 This is the more general form of the 'filter' command.
 Return only the cells in the bag for which the _cell-function_ is true. These are typically written
 ```python
