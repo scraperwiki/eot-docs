@@ -56,3 +56,11 @@ code {
     padding-left: 0;
     padding-right: 0;
 }
+#topnav {
+    padding-top: 4px;
+    padding-bottom: 8px;
+}
+#logo {
+    margin-top: 12px;
+    color: #999;
+}
