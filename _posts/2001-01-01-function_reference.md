@@ -74,7 +74,7 @@ newbag = bigbag - bag_of_cells_we_dont  # also .difference
 newbag = bag & other_bag                # also .intersection
 ```
 
-![GitHub Logo](/images/set.jpeg)
+![sets](../images/set.jpeg)
 
 ##### bag.filter(_string_)
 Return only the cells in the bag with a value of _string_. Typically there's only one, so this is often followed by `.assert_one()`. See later for other options to pass to filter.
