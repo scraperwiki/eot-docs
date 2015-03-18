@@ -1,12 +1,11 @@
 ---
 layout: page
-title: "Worked examples"
-category: doc
-date: 2002-11-01 12:00:00
-order: 2
+title: "Worked example"
+category: lang
+date: 2001-06-01 12:00:00
 ---
 
-## Explaining the recipe a02.py
+### Explaining recipe a02.py
  
 The spreadsheet we're going to extract data from is `a02.xls`. It's
 available [here](https://github.com/scraperwiki/eot-recipes) together
@@ -70,11 +69,13 @@ def per_tab(tab):
 
 For each tab we've selected, `per_tab` does the following things.
 
-#### Selecting cells
+### Selecting cells
 
-##### Line 1
+#### Line 1
 
-`tab.filter("MGSL")`
+```python
+tab.filter("MGSL")
+```
  
 This only returns cells that match the text "MGSL". In this
 spreadsheet, there's only one match at cell B7, so this filter returns
@@ -135,7 +136,7 @@ These four lines all add dimensions to be retrieved for each cell in the
 selected data, `obs`, but use different approaches to locate the cell
 containing the dimension information.
 
-##### Line 2 
+#### Line 2 
 
 The `tab.col('A')` in line 2 (L2) and line 3 selects cells in column A
 of the tab.
@@ -159,7 +160,7 @@ Persons". For cells in the second selection of `obs` cells (rows
 
 ![Illustration of gender selection](../images/a02_closest_above_gender.png)
 
-##### Line 3
+#### Line 3
 
 First, we do the same as in L2, selecting all cells in column A.
 
@@ -179,7 +180,7 @@ observation.)
 
 ![Illustration of date selection](../images/a02_directly_left_time.png)
 
-##### Line 4
+#### Line 4
 
 `tab.regex("All aged .\*")` uses a regular expression to find cells
 anywhere in the tab that contain `All aged ` (notice the space) followed
@@ -217,9 +218,11 @@ the `All aged 16 & over`.)
 ![Illustration of another regex selection with
 cells](../images/a02_all_aged_regex_selection_2.png)
 
-##### Line 5
+#### Line 5
 
-`tab.filter("Total economically active").fill(LEFT).fill(RIGHT).is_not_blank().dimension('indicator', DIRECTLY, ABOVE)`
+```python
+tab.filter("Total economically active").fill(LEFT).fill(RIGHT).is_not_blank().dimension('indicator', DIRECTLY, ABOVE)
+```
 
 Here we first find cells that contain exactly `Total economically
 active`. For all of the cells in this selection, we then select all cells
@@ -240,9 +243,11 @@ blanks](../images/a02_header_selection_no_blanks.png)
 `.dimension('indicator', DIRECTLY, ABOVE)` labels the cell in this
 selection directly above each cell of interest as `indicator`.
 
-##### Line 6
+#### Line 6
 
-`tab.dimension('adjusted_yn', tab.name)`
+```python
+tab.dimension('adjusted_yn', tab.name)
+```
 
 This line explicitly sets a dimension item to be the name of the
 current tab (`tab.name`). It doesn't actually consider any of the
@@ -256,9 +261,9 @@ So, for this dimension, the values will be
 `seasonally adjusted` or `not seasonally adjusted` depending on which
 tab the observation was found.
 
-#### Extracting the data with the dimensions
+### Extracting the data with the dimensions
 
-##### Line 7
+#### Line 7
 
 `return obs` then tells `databaker` that it's the end of the recipe
 and we've finished selecting observations and dimensions. If we run
