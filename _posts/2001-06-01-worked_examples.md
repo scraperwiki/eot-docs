@@ -73,7 +73,9 @@ For each tab we've selected, `per_tab` does the following things.
 
 #### Line 1
 
-`tab.filter("MGSL")`
+```python
+tab.filter("MGSL")
+```
  
 This only returns cells that match the text "MGSL". In this
 spreadsheet, there's only one match at cell B7, so this filter returns
@@ -218,7 +220,9 @@ cells](../images/a02_all_aged_regex_selection_2.png)
 
 #### Line 5
 
-`tab.filter("Total economically active").fill(LEFT).fill(RIGHT).is_not_blank().dimension('indicator', DIRECTLY, ABOVE)`
+```python
+tab.filter("Total economically active").fill(LEFT).fill(RIGHT).is_not_blank().dimension('indicator', DIRECTLY, ABOVE)
+```
 
 Here we first find cells that contain exactly `Total economically
 active`. For all of the cells in this selection, we then select all cells
@@ -241,7 +245,9 @@ selection directly above each cell of interest as `indicator`.
 
 #### Line 6
 
-`tab.dimension('adjusted_yn', tab.name)`
+```python
+tab.dimension('adjusted_yn', tab.name)
+```
 
 This line explicitly sets a dimension item to be the name of the
 current tab (`tab.name`). It doesn't actually consider any of the
