@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Function Reference"
-category: doc
+title: "Function reference"
+category: lang
 date: 2001-01-01 12:00:00
 ---
 
@@ -67,7 +67,7 @@ How we get from observations to headers:
 
 ### Bags
 
-##### Set Operators
+##### Set operators
 Bags are 'sets' of cells - and you can treat them just like Python sets.
 
 Specifically, you can use:
