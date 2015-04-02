@@ -156,6 +156,12 @@ For any spanned cells, get the top-left cell (which contains all the info).
 
 Non-spanned cells are passed unchanged.
 
+##### bag.children()
+For any cell that is part of a span, get *all* cells that are parts of the span.
+
+Useful for .fill(DOWN), but note that if the spanned cell is more than one row high,
+that'll include some of the spanned cells!
+
 ##### table.debug_dimensions() [db]
 Adds debug dimensions - giving the table name and Excel cell reference - to the output CSV.
 
