@@ -113,6 +113,8 @@ Note that this might get a lot of blank cells: consider using `is_not_blank()`.
 
 <img src = '../images/fillexpand.jpeg' width="50%" height="50%">
 
+It also has a `stop_before` parameter: this takes a function which is tested against each bag; the fill/expand will stop if function(bag) is True. Note that this only works when cells are in a single row or column (specifically; the cells are scanned in book-reading order, left to right and top to bottom; we stop the first time the value is True)
+
 ##### bag.is_number() [DB]
 Return only the cells in the bag which have a numeric value. 
 
