@@ -8,9 +8,16 @@ date: 2001-01-01 12:00:00
 ### Core 
 
 ##### bag.dimension(label, method, direction)
-##### table.dimension(label, value)
+##### table.dimension(label, literal_value)
+##### table.dimension(label, [subdimensions]) ## TODO
 
 Use the first to specify a dimension to output, selecting the header cells so that the observations can find them in the first case, or a literal string value in the second. For more info, see the [language page](language.html).
+
+Subdimensions are exactly like dimensions, except:
+
+* you use `.subdim` instead of `.dimension`
+* they don't have labels
+* they don't appear independently in the output.
 
 #### per_tab(tab)
 
@@ -41,7 +48,7 @@ You can return them all with `tableset` or `"*"`
 
 ABOVE (synonym for UP), BELOW (synonym for DOWN), LEFT, RIGHT
 
-###### Dimensions
+###### Special dimensions
 
 * OBS is an observation, a particular piece of data.
 * DATAMARKER refer to footnote-like things, for example `(a)` to refer
@@ -249,6 +256,35 @@ bag.filter(hamcrest.equal_to("dog"))
 
 Of specific interest is when the _cell-function_ is `re.compile(`_regular-expression_`)`: this is `True` when the regular expression matches the cell's value.  
 
+##### bag.glue(_cell-function_, _join-function_, _blank_=True)
+
+**WARNING** -- Unlike other functions this modifies the values of the cells. Inappropriate use can lead to inconsistent results! -- **WARNING**
+
+Sometimes, for formatting reasons, what should logically be one cell needs is split across multiple cells. `.glue` rejoins these cells together.
+
+The bag needs to contain the key cells: those which will contain values once we're done. For each of these cells, the cell_function is called on it, giving a range of ancillary cells which will provide values to the key cell.
+
+The key cell's value becomes the concatenation of it and the ancillary cells in reading order; the ancillary cells values are then wiped (unless `blank` is set to `False`)
+
+This does not change the formatting properties of the cells.
+
+It is *strongly* recommended that gluing of cells occurs as early as possible in the `per_tab` function: the results of other functions will change after a call to `.glue`.
+
+Example cell_function -- get the two cells below the key cell:
+
+`bag.glue(lambda cell: cell.extrude(0,2))`
+
+or
+
+```python
+def two_down(cell):
+    return cell.extrude(0,2)
+
+bag.glue(two_down)
+```
+
+
+**WARNING** -- Unlike other functions this modifies the values of the cells. Inappropriate use can lead to inconsistent results! -- **WARNING**
 
 ### Other things that might be useful, maybe.
 

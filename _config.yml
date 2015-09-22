@@ -1,6 +1,6 @@
 # Site title and subtitle. This is used in _includes/header.html
-title: 'Excel Output Transformation'
-subtitle: 'Office of National Statistics'
+title: 'DataBaker: Excel Output Transformation'
+subtitle: 'created for the Office of National Statistics'
 
 # Enable/show navigation. There are there options:
 #   0 - always hide
