@@ -258,33 +258,45 @@ Of specific interest is when the _cell-function_ is `re.compile(`_regular-expres
 
 ##### bag.glue(_cell-function_, _join-function_, _blank_=True)
 
-**WARNING** -- Unlike other functions this modifies the values of the cells. Inappropriate use can lead to inconsistent results! -- **WARNING**
+**WARNING** : this function modifies cell values and has interesting side-effects. See details below.
 
-Sometimes, for formatting reasons, what should logically be one cell needs is split across multiple cells. `.glue` rejoins these cells together.
+Sometimes, what should be one cell in the output is split across multiple cells in the Excel spreadsheet. `.glue` rejoins these cells together.
 
-The bag needs to contain the key cells: those which will contain values once we're done. For each of these cells, the cell_function is called on it, giving a range of ancillary cells which will provide values to the key cell.
+<img src='../images/glue.png' width="85%" height="85%">
+
+The bag needs to contain the key cells: those which will contain values once we're done. For each of these cells, the cell_function is called on it, giving a range of ancillary cells which will provide their values to the key cell.
 
 The key cell's value becomes the concatenation of it and the ancillary cells in reading order; the ancillary cells values are then wiped (unless `blank` is set to `False`)
 
-This does not change the formatting properties of the cells.
+This does not change the formatting properties of the cells: in particular, the cells are not spanned together.
+
+The `join_function` defaults to concatenating the values together with space: a different function can be provided. (i.e. `' '.join`)
 
 It is *strongly* recommended that gluing of cells occurs as early as possible in the `per_tab` function: the results of other functions will change after a call to `.glue`.
 
-Example cell_function -- get the two cells below the key cell:
-
-`bag.glue(lambda cell: cell.extrude(0,2))`
-
-or
-
+Example code for above:
 ```python
-def two_down(cell):
-    return cell.extrude(0,2)
+def per_tab(tab):
+    # ... code to acquire key_cells, e.g.
+    key_cells = tab.filter("All homes")
+    key_cells.glue(lambda cell: cell.extrude(0,3))
 
-bag.glue(two_down)
+    # all homes cells have been changed so the 
+    # function we used gives us a different answer now
+    assert len(tab.filter("All homes")) == 0
+
+    # ... rest of per_tab function as per usual
+    tab.filter(re.compile("All homes.*")).dimension('location', DIRECTLY, ABOVE)
+    # ...
 ```
 
-
 **WARNING** -- Unlike other functions this modifies the values of the cells. Inappropriate use can lead to inconsistent results! -- **WARNING**
+
+Selectors which filter by the values of the affected cells -- like the ones used to select the key cells in the first place -- will return results based on the *modified* values after the use of `.glue`.
+
+It is therefore *strongly* recommended that gluing of cells occurs as early as possible in the `per_tab` function.
+
+Whilst `.glue` can be chained (it returns the bag of key cells provided to it; the bag is unchanged but the values of the cells in it are) it's not recommended since it isn't a 'pure' function. 
 
 ### Other things that might be useful, maybe.
 
