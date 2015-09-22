@@ -275,6 +275,7 @@ The `join_function` defaults to concatenating the values together with space: a 
 It is *strongly* recommended that gluing of cells occurs as early as possible in the `per_tab` function: the results of other functions will change after a call to `.glue`.
 
 Example code for above:
+
 ```python
 def per_tab(tab):
     # ... code to acquire key_cells, e.g.
@@ -288,6 +289,7 @@ def per_tab(tab):
     # ... rest of per_tab function as per usual
     tab.filter(re.compile("All homes.*")).dimension('location', DIRECTLY, ABOVE)
     # ...
+
 ```
 
 **WARNING** -- Unlike other functions this modifies the values of the cells. Inappropriate use can lead to inconsistent results! -- **WARNING**
