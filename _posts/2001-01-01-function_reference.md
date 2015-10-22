@@ -9,7 +9,7 @@ date: 2001-01-01 12:00:00
 
 ##### bag.dimension(label, method, direction)
 ##### table.dimension(label, literal_value)
-##### table.dimension(label, [subdimensions]) ## TODO
+##### table.dimension(label, [subdimensions])
 
 Use the first to specify a dimension to output, selecting the header cells so that the observations can find them in the first case, or a literal string value in the second. For more info, see the [language page](language.html).
 
@@ -135,6 +135,9 @@ Jan-Mar 1999
 ```
 Note that currently this won't detect cells which are actually recognised by Excel as dates!
 
+##### bag.spaceprefix(count)
+Return cells which have `count` whitespace at the start, and then a non-whitespace character.
+
 ##### bag.is_XXX()
 ##### bag.is\_not\_XXX()
 Return only the cells which are / are not a thing.
@@ -144,7 +147,7 @@ bag.is_not_bold()
 bag.is_strikeout()
 ```
 
-Options which make sense: `bold`, `italic`, `strikeout`, `underline`, `blank`, `any_border`, `all_border`, `richtext`.
+Options which make sense: `bold`, `italic`, `strikeout`, `underline`, `blank`, `any_border`, `all_border`, `richtext`, `whitespace`.
 (is any border lined? are all four borders lined? is this cell richtext?)
 
 ##### bag.XXX\_is(_value_)
