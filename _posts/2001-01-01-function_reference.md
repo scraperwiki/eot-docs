@@ -194,6 +194,14 @@ Get cells in this bag which are in the same row/column as a cell in the second.
 ##### bag.table
 The table which these cells are from.
 
+##### bag.by_index(index)
+Get cells from this bag by their position in the bag: i.e. `by_index(1)` will get the first.
+
+Can also pass lists of numbers: `by_index([2,4,6,8])` but this might get removed in future,,
+in favour of using standard Python indexes `bag[4]`.
+
+**experimental** : might remove and replace with standard pythonic indexes.
+
 ### Table only
 
 ##### table.excel\_ref(_ref_) [db]
