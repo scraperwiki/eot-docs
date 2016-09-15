@@ -1,1 +1,1 @@
-### [Read the documentation](http://scraperwiki.github.io/eot-docs/)
+### [Read the documentation](https://sensiblecodeio.github.io/quickcode-ons-docs/)

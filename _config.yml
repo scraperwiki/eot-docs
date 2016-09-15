@@ -9,7 +9,7 @@ subtitle: 'Solve data problems and boost coding skills'
 navigation: 2
 
 # URL to source code, used in _includes/footer.html
-codeurl: 'https://github.com/scraperwiki/eot-docs'
+codeurl: 'https://github.com/SensibleCodeIO/quickcode-ons-docs'
 
 # Default categories (in order) to appear in the navigation
 sections: [
@@ -20,7 +20,7 @@ sections: [
 
 # Keep as an empty string if served up at the root. If served up at a specific
 # path (e.g. on GitHub pages) leave off the trailing slash, e.g. /my-project
-baseurl: '/eot-docs'
+baseurl: '/quickcode-ons-docs'
 
 # Dates are not included in permalinks
 permalink: none
